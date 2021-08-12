@@ -28,7 +28,7 @@
     "js-base64": "3.6.1",
     "n3": "1.11.1",
     "rdfa-streaming-parser": "1.5.0",
-    "rdfxml-streaming-parser": "1.4.0",
+    "rdfxml-streaming-parser": "1.5.0",
     "sass": "1.37.5",
     "stream": "0.0.2",
     "vue": "2.6.14",
