@@ -5,8 +5,11 @@ import ResultView from "../src/views/ResultView";
 
 Vue.use(Router);
 
+// TODO: base property should be set from config
+
 export default new Router({
    mode: 'history',
+   base: '/shacl-validator/',
    routes: [
        {
            path: '/',
