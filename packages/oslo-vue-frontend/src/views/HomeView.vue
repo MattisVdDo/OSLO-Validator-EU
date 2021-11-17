@@ -62,14 +62,14 @@ export default {
   components: {
     "upload-component": UploadComponent,
     "select-component": SelectComponentVue,
-    "input-component": InputComponentVue
+    "input-component": InputComponentVue,
   },
   data() {
     return {
       file: null,
       applicationProfile: "",
       url: "",
-      contentCanbeValidated: false
+      contentCanbeValidated: false,
     };
   },
   methods: {
@@ -95,10 +95,10 @@ export default {
       const readStream = fileReaderStream(this.file);
       const writer = new N3.Writer();
 
-      return await new Promise(resolve => {
+      return await new Promise((resolve) => {
         parser
           .import(readStream)
-          .on("data", quad => {
+          .on("data", (quad) => {
             writer.addQuad(quad);
           })
           .on("error", console.error)
@@ -151,7 +151,7 @@ export default {
       } else {
         const reader = new FileReader();
 
-        data = await new Promise(resolve => {
+        data = await new Promise((resolve) => {
           reader.onload = () => {
             resolve(reader.result);
           };
@@ -169,7 +169,7 @@ export default {
     createRequestBodyForFile(data, isRDFaFile) {
       const body = {
         embeddingMethod: "BASE64",
-        validationType: this.applicationProfile
+        validationType: this.applicationProfile,
       };
 
       if (isRDFaFile) {
@@ -187,8 +187,8 @@ export default {
     },
     createRequestBodyForUrl() {
       return JSON.stringify({
-        contentToValidate: this.Url,
-        validationType: this.selectedApplicationProfile
+        contentToValidate: this.url,
+        validationType: this.applicationProfile,
       });
     },
     async validate() {
@@ -211,17 +211,20 @@ export default {
         method: "POST",
         headers: myHeaders,
         body: requestBody,
-        redirect: "follow"
+        redirect: "follow",
       };
 
-      fetch(config.HOSTNAME_URL_LOCAL + config.API_PATH, requestOptions)
-        .then(response => {
+      fetch(
+        config.HOSTNAME_URL + config.BACKEND_PATH + config.API_PATH,
+        requestOptions
+      )
+        .then((response) => {
           store.commit("setResult", response);
           this.$router.push({ path: "results" });
         })
-        .catch(error => console.log("error", error));
-    }
-  }
+        .catch((error) => console.log("error", error));
+    },
+  },
 };
 </script>
 

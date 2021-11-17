@@ -29,6 +29,7 @@ import { RdfXmlParser } from "rdfxml-streaming-parser";
 import store from "../store/store";
 import ResultPrettyComponentVue from "../components/ResultPrettyComponent.vue";
 import ResultRawComponentVue from "../components/ResultRawComponent.vue";
+import config from "../config";
 
 const Stream = require("stream");
 
@@ -36,7 +37,7 @@ export default {
   name: "ResultComponent",
   components: {
     "result-pretty": ResultPrettyComponentVue,
-    "result-raw": ResultRawComponentVue
+    "result-raw": ResultRawComponentVue,
   },
   data() {
     return {
@@ -44,7 +45,7 @@ export default {
       selectedFormat: "application/rdf+xml",
       rawResult: "",
       downloadLink: "",
-      nameDownloadFile: ""
+      nameDownloadFile: "",
     };
   },
   mounted() {
@@ -110,9 +111,9 @@ export default {
     },
     navigate() {
       this.$router.push({
-        path: process.env.VUE_APP_FRONTEND_PATH + "/"
+        path: "/",
       });
-    }
-  }
+    },
+  },
 };
 </script>
