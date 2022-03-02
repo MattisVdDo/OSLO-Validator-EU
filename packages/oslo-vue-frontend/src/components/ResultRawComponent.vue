@@ -92,7 +92,7 @@ export default {
         redirect: "follow"
       };
 
-      fetch(config.HOSTNAME_URL_LOCAL + config.API_PATH, requestOptions)
+      fetch(config.HOSTNAME_URL + config.BACKEND_PATH + config.API_PATH, requestOptions)
         .then(response => {
           this.processResult(response);
         })

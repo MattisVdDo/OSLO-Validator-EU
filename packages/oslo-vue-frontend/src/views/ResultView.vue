@@ -27,9 +27,9 @@
 <script>
 import { RdfXmlParser } from "rdfxml-streaming-parser";
 import store from "../store/store";
+import config from "../config";
 import ResultPrettyComponentVue from "../components/ResultPrettyComponent.vue";
 import ResultRawComponentVue from "../components/ResultRawComponent.vue";
-import config from "../config";
 
 const Stream = require("stream");
 
@@ -111,7 +111,7 @@ export default {
     },
     navigate() {
       this.$router.push({
-        path: "/",
+        path: "/"
       });
     },
   },

@@ -6,7 +6,7 @@ RUN npm install -g http-server
 # make the 'app' folder the current working directory
 WORKDIR /app
 
-ARG NPM_TOKEN
+ARG NPM_AUTH_TOKEN
 COPY .npmrc .npmrc
 
 # copy both 'package.json' and 'package-lock.json' (if available)
@@ -20,9 +20,11 @@ RUN rm -f .npmrc
 COPY . .
 COPY vue.config.js ./
 COPY env ./.env
+RUN source ./.env
 
 # build app for production with minification
 RUN npm run build
 
 EXPOSE 8080
+# the base image is a node.js image which expects a node program as command
 CMD [ "http-server", "dist" ]

@@ -47,7 +47,10 @@ export default {
         "Subsidieregister",
         "Contactvoorkeuren",
         "Dienst_Transactiemodel",
-        "Vlaamse_codex"
+        "Vlaamse_codex",
+        "Metadata_DCAT",
+        "DCAT_AP_VL",
+        "GEODCAT_AP_VL"
       ],
       showSelectError: false,
       applicationProfile: ""

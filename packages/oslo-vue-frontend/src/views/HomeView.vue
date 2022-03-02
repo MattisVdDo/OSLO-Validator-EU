@@ -188,7 +188,7 @@ export default {
     createRequestBodyForUrl() {
       return JSON.stringify({
         contentToValidate: this.url,
-        validationType: this.applicationProfile,
+        validationType: this.applicationProfile
       });
     },
     async validate() {
@@ -213,11 +213,10 @@ export default {
         body: requestBody,
         redirect: "follow",
       };
+       
+      console.log(requestOptions);
 
-      fetch(
-        config.HOSTNAME_URL + config.BACKEND_PATH + config.API_PATH,
-        requestOptions
-      )
+      fetch(config.HOSTNAME_URL + config.BACKEND_PATH + config.API_PATH, requestOptions)
         .then((response) => {
           store.commit("setResult", response);
           this.$router.push({ path: "results" });
