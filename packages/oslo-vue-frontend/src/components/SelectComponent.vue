@@ -14,10 +14,10 @@
       >
         <option
           v-for="ap in applicationProfiles"
-          :key="ap"
-          :value="ap.toLowerCase()"
+          :key="ap[Object.keys(ap)[0]]"
+          :value="[Object.keys(ap)[0]].toString()"
         >
-          {{ ap.replace("_", " ") }}
+          {{ ap[Object.keys(ap)[0]] }}
         </option>
       </vl-select>
     </vl-column>
@@ -35,23 +35,7 @@ export default {
   emits: ["onChangeSelect"],
   data() {
     return {
-      applicationProfiles: [
-        "Adresregister",
-        "Besluit_Publicatie",
-        "Dienstencataloog",
-        "Generiek_basis",
-        "Generieke_Terugmeldfaciliteit",
-        "Notificatie_basis",
-        "Organisatie_basis",
-        "Persoon_basis",
-        "Subsidieregister",
-        "Contactvoorkeuren",
-        "Dienst_Transactiemodel",
-        "Vlaamse_codex",
-        "Metadata_DCAT",
-        "DCAT_AP_VL",
-        "GEODCAT_AP_VL"
-      ],
+      applicationProfiles: [],
       showSelectError: false,
       applicationProfile: ""
     };
@@ -71,6 +55,27 @@ export default {
       this.showSelectError = false;
       return false;
     }
+  },
+  async mounted() {
+    const response = await fetch('https://raw.githubusercontent.com/Informatievlaanderen/OSLO-Validator-EU/dev/packages/oslo-itb-rdf-validator/resources/applicatieprofielen/config.properties');
+    const data = await response.text(); //get github config.properties content as text
+
+    var obj = {};
+
+    data.toString().split('\n').forEach(element => {
+      if (element.includes('=')) {
+        element = element.replaceAll(' = ', '=').trim();
+        obj[element.split("=")[0]] = element.split("=")[1];
+      }else if (!element.trim().startsWith('#') && element.trim()) {
+        obj["validator.type"] = obj["validator.type"] + ' ' + element; //check for extra types in different line (fix layout)
+      }
+    }); //turn properties file into json object
+
+    obj["validator.type"].split(',').map(x => x.trim()).forEach(type => {
+      var ttlarr = {};
+      ttlarr[type] = obj[`validator.typeLabel.${type}`] //make array for every type : {type: "typelabel"}
+      this.applicationProfiles.push(ttlarr); //add array to applicationprofiles list
+    });
   }
 };
 </script>
