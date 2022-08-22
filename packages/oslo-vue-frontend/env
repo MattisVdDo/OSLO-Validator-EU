@@ -4,3 +4,4 @@ VUE_APP_HOSTNAME_URL=http://data.dev-vlaanderen.be
 VUE_APP_API_PATH=/shacl/applicatieprofielen/api/validate
 NODE_ENV=development
 TARGET_ENV=local
+CONFIGURATION_URL=https://raw.githubusercontent.com/Informatievlaanderen/OSLO-Validator-EU/dev/packages/oslo-itb-rdf-validator/resources/applicatieprofielen/config.properties
